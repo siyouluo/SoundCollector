@@ -14,7 +14,7 @@
   ******************************************************************************
   */
 #include "usart3.h"
-#include "usart.h"
+#include "usart1.h"
 uint8_t USART3_RECEIEVE_QUEUE_BUF[USART3_MAX_QUEUE_BUF_SIZE];//USART3串口缓冲区
 uint8_t USART3_QUEUE_REAR=0;//串口缓冲区队列尾，入队位置
 uint8_t USART3_QUEUE_FRONT=0;//串口缓冲区队列首，出队位置

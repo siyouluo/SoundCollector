@@ -15,9 +15,8 @@ extern uint8_t USART1_QUEUE_FULL(void);
 extern uint8_t USART1_QUEUE_EMPTY(void);
 extern uint8_t USART1_PUSH_QUEUE(uint8_t ch);
 extern uint8_t USART1_POP_QUEUE(void);
-extern void ReadBytes(uint8_t n);
-extern void WriteByte(uint8_t ch);
-extern void WriteBytes(uint8_t n, uint8_t *p);
+extern void USART1_WriteByte(uint8_t ch);
+extern void USART1_WriteBytes(uint8_t n, uint8_t *p);
 
 
 #endif

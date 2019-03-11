@@ -1,4 +1,5 @@
-#include "usart.h"
+#include "usart1.h"
+#include "adc.h"
 uint8_t USART1_RECEIEVE_QUEUE_BUF[USART1_MAX_QUEUE_BUF_SIZE];//USART1串口缓冲区
 uint8_t USART1_QUEUE_REAR=0;//串口缓冲区队列尾，入队位置
 uint8_t USART1_QUEUE_FRONT=0;//串口缓冲区队列首，出队位置
@@ -68,17 +69,17 @@ int fputc(int ch, FILE *p)
 	return ch;
 }
 
-void WriteByte(uint8_t ch)
+void USART1_WriteByte(uint8_t ch)
 {
 	USART_SendData(USART1,(u8)ch);
 	while(USART_GetFlagStatus(USART1,USART_FLAG_TC) != SET);
 }
-void WriteBytes(uint8_t n, uint8_t *p)
+void USART1_WriteBytes(uint8_t n, uint8_t *p)
 {
 	uint8_t i;
 	for(i=0;i<n;i++)
 	{
-		WriteByte(p[i]);
+		USART1_WriteByte(p[i]);
 	}
 }
 
@@ -138,7 +139,17 @@ void USART1_IRQHandler(void)                	//串口1中断服务程序
 	{
 		if(!USART1_QUEUE_FULL())
         {
-            USART1_PUSH_QUEUE(USART_ReceiveData(USART1));
+//            USART1_PUSH_QUEUE(USART_ReceiveData(USART1));
+			if(USART_ReceiveData(USART1)==0xa9)
+			{
+				ADC_CLEAR_QUEUE();
+				TIM_Cmd(TIM4,ENABLE); //使能定时器	
+			}
+			if(USART_ReceiveData(USART1)==0xb9)
+			{
+				TIM_Cmd(TIM4,DISABLE); //关闭定时器	
+			}
+			
         }
 	} 
 	USART_ClearFlag(USART1,USART_FLAG_TC);
