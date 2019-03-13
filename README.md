@@ -77,8 +77,8 @@
 |         |B3            |A5          |           |
 |         |B4            |A4          |           |
 |         |B5            |A3          |           |
-|OLED(SCL)|B6(SCL)       |A2          |           |
-|OLED(SDA)|B7(SDA)       |A1          |           |
+|         |B6            |A2          |           |
+|         |B7            |A1          |           |
 |         |B8            |A0          |           |
 |         |B9            |C15         |           |
 |         |5V	         |C14         |           |
@@ -88,7 +88,8 @@
 
 
 # 上位机
-调用`pySerial`库，接收串口数据，合成\*.wav文件，使用`pyAudio`进行播放
+调用`pySerial`库，接收串口数据，合成\*.wav文件，使用`pyAudio`进行播放  
+详见[./Scripts/readme.md](./Scripts/readme.md)  
 
 
 # Bill of Material
@@ -98,6 +99,7 @@
 |咪头|将音频信号转换为电信号|52dB拾音器带引脚9*7mm|&yen;1.85/5个|<img src="./Reference/咪头/咪头.jpg" width="30" align=center />|
 |集成运放|信号放大, 偏置, 滤波|LM358, SOP8封装|&yen;0.32|<img src="./Reference/SignalAmplifier/LM358/LM358.jpg" width="30" align=center />|
 |电阻||0603封装|\*||
+|电位计||3296W封装|\*||
 |电容||0805封装|\*||
 |单片机|数据处理和传输|stm32f103c8t6|&yen;10|<img src="./Reference/单片机最小系统/stm32f103c8t6.jpg" width="30" align=center />|
 |`CH340`模块|USB转TTL, 程序下载，单片机和上位机通信|55mm\*16mm|&yen;5|<img src="./Reference/单片机最小系统/CH340.jpg" width="30" align=center />|
@@ -139,8 +141,12 @@ arduino不存在这个问题, 但arduino无法正确接收pySerial发送的信�
 - [x] 之前串口通信出错是因为所用的stm32开发板中将RST, boot管脚连接到了CH340,
 PC机通过串口使单片机不断地复位. 这应该是软件配置的问题, 但暂时没能很好地解决.
 使用自己开发的串口调试助手时, 可以禁用RST, DTR, 发现能够成功通信, 但是不够稳定,
-仍然时不时出错. 解决方案是在设计电路板时在单片机和CH340的这几个管脚之间用跳线帽
+仍然时不时出错. 解决方案是在设计电路板时在单片机和CH340的这两个管脚之间用跳线帽
 连接, 程序下载完成后断开. 或者在电路板上不设计下载电路, 只引出USART1管脚.
+
+2019/3/11:
+- [x] pySerial接收stm32发来的字节并解析成列表, 存储成\*.npy格式(./SerialRead.py)
+- [x] 用PyQt4开发简单的图形界面, 实现同样的功能(./gui.py)
 
 # 友情链接
 [PCB板打样工厂-捷多邦](https://www.jdbpcb.com/)  

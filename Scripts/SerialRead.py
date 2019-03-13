@@ -38,7 +38,7 @@ else:
 def KeyDetect(threadName):
     global wave
     while True:
-        cmd = input("please input cmd: a:start, b:stop\n")
+        cmd = input("please input cmd: a:start, b:stop, c:quit\n")
         if cmd=='a':
             print("collecting...")
             ser.flushInput()
