@@ -1,0 +1,5 @@
+Added Component: Designator=R5(VR5)
+Added Pin To Net: NetName=NetLM358-1_5 Pin=R5-1
+Added Pin To Net: NetName=GND Pin=R5-3
+Added Member To Class: ClassName=soundcollector Member=Component R5 RPot
+Added Room: Name=soundcollector

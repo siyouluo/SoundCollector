@@ -1,0 +1,18 @@
+Removed Pin From Net: NetName=NetC7_1 Pin=R12-1
+Added Component: Designator=R4(3296W)
+Added Component: Designator=R5(3296W)
+Added Component: Designator=R6(3296W)
+Added Pin To Net: NetName=GND Pin=R4-1
+Added Pin To Net: NetName=NetC9_1 Pin=R4-2
+Added Pin To Net: NetName=NetC5_2 Pin=R4-3
+Added Pin To Net: NetName=NetLM358-1_5 Pin=R5-1
+Added Pin To Net: NetName=GND Pin=R5-2
+Added Pin To Net: NetName=100SIGNAL Pin=R6-2
+Added Pin To Net: NetName=NetC7_1 Pin=R6-3
+Added Pin To Net: NetName=NetR6_1 Pin=R6-1
+Added Pin To Net: NetName=NetR6_1 Pin=R12-1
+Added Net: Name=NetR6_1
+Added Member To Class: ClassName=soundcollector Member=Component R4 10K
+Added Member To Class: ClassName=soundcollector Member=Component R5 10K
+Added Member To Class: ClassName=soundcollector Member=Component R6 200K
+Added Room: Name=soundcollector
