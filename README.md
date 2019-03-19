@@ -33,7 +33,7 @@
 
 # 小信号放大
 这里选用两级`LM358`对小信号进行放大, 并通过电位计调节增益,
-[Multisim 仿真](./MultisimProject)时, 该电路将幅度10mV,
+[Multisim 仿真](./MultisimProject/1KHz电压放大.png)时, 该电路将幅度10mV,
 频率1KHz的正弦交流电放大到了幅度为1V, 直流偏置为2.47V的正弦波.
 实际使用时, 要考虑咪头输出电压大小, 调节电位计R5.  
 且可以调节R7以调整直流偏置大小, 调节R9来微调放大倍数, 将输出电压控制在
@@ -52,7 +52,7 @@
 但这并不表明输出的电压没有24Hz以下的频率成分, 系统的带通特性表明输入端
 的低频成分无法传递到输出端, 但在系统内部却为其提供了直流偏置,
 所以输出端至少还有0Hz分量.  
-[Multisim 仿真](./MultisimProject)
+[Multisim 仿真](./MultisimProject/二阶低通滤波上截止频率.png)
 
 # AD转换
 这里选用`stm32`f103c8t6作为主控芯片, 这款芯片内置2个12位`ADC转换单元`,
@@ -99,12 +99,12 @@
 |---|---|---|---|---|
 |咪头|将音频信号转换为电信号|52dB拾音器带引脚9*7mm|&yen;1.85/5个|<img src="./Reference/咪头/咪头.jpg" width="30" align=center />|
 |集成运放|信号放大, 偏置, 滤波|LM358, SOP8封装|&yen;0.32|<img src="./Reference/SignalAmplifier/LM358/LM358.jpg" width="30" align=center />|
-|电阻||0603封装|\*||
-|电位计||3296W封装|\*||
-|电容||0805封装|\*||
+|电阻||0805封装|\*|<img src="./Reference/电阻/电阻实物图.jpg" width="30" align=center />|
+|电位计||3296W封装|\*|<img src="./Reference/3296W电位计/3296W电位计实物图.jpg" width="30" align=center />|
+|电容||0805封装|\*|<img src="./Reference/电容/电容实物图.jpg" width="30" align=center />|
 |单片机|数据处理和传输|stm32f103c8t6|&yen;10|<img src="./Reference/单片机最小系统/stm32f103c8t6.jpg" width="30" align=center />|
-|`CH340`模块|USB转TTL, 程序下载，单片机和上位机通信|55mm\*16mm|&yen;5|<img src="./Reference/单片机最小系统/CH340.jpg" width="30" align=center />|
-|PCB板|电子元器件电气连接的载体|\*|&yen;50/10块|\*|
+|`CH340`模块|USB转TTL, 程序下载，单片机和上位机通信|55mm x 16mm|&yen;5|<img src="./Reference/单片机最小系统/CH340.jpg" width="30" align=center />|
+|PCB板|电子元器件电气连接的载体|10cm x 10cm|&yen;50/10块|\*|
 |锂电池|为整个系统供电|12V、3000mAh|&yen;47|<img src="./Reference/供电/锂电池.jpg" width="30" align=center />|
 |降压模块|为单片机等提供合适的供电电压|`LM2596`, 输出1.25~35V|&yen;2.9|<img src="./Reference/供电/降压模块.jpg" width="30" align=center />|
 
@@ -152,10 +152,22 @@ PC机通过串口使单片机不断地复位. 这应该是软件配置的问题,
 2019/3/12:
 - [x] 完成Altium Designer原理图绘制
 
+2019/3/16:
+- [x] 完成Altium Designer PCB板绘制
+- [ ] PCB板上要预留调试接口
+
+2019/3/17:
+- [x] 检查三极管封装
+
+2019/3/19:
+- [x] 完善上位机GUI程序;添加接收文本框和发送文本框(其功能暂未添加)
+
 # 友情链接
 [PCB板打样工厂-捷多邦](https://www.jdbpcb.com/)  
+[在线长度换算-ConvertLIVE](https://convertlive.com/zh/u/转换/毫米/自/密耳#1)  
 [在线流程图制作-ProcessOn](https://www.processon.com/)  
 [pySerial’s documentation](https://pythonhosted.org/pyserial/)  
+[pySerial’s documentation](https://pyserial.readthedocs.io/en/latest/index.html)  
 [PyAudio](http://people.csail.mit.edu/hubert/pyaudio/)  
-[数据手册](http://www.alldatasheet.com)  
+[数据手册-ALLDATASHEET](http://www.alldatasheet.com)  
  

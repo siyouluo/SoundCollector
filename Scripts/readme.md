@@ -1,4 +1,4 @@
-# readme.md
+# 上位机
 
 # 业务逻辑
 使用pySerial进行串口读写  
@@ -61,11 +61,10 @@ w.show()
 sys.exit(a.exec_())
 ```
 
-## 重构串口接收(gui.py)
+## 重构串口接收(gui_mini.py)
 这部分程序功能和SerialRead.py一样, 只是用按钮替换命令行字符命令:  
 Start -- 'a'  
 Stop  -- 'b'  
-Quit  -- 'c'  
 
 	usage:	
 	将PC机用USB转ttl模块连接到stm32  
@@ -74,9 +73,9 @@ Quit  -- 'c'
 	点击Start按钮  
 	...  
 	点击Stop按钮  
-	点击Quit按钮  
+	点击 X  
 	AD采样值被存入./wave.npy文件
-<img src="./images/run_gui.py.png" width="400" align=center />  
+<img src="./images/run_gui_mini.py.png" width="400" align=center />  
 
 
 使用一个电位计进行模拟, 旋转电位计, 采集到的电压波形如下图:  
@@ -90,6 +89,10 @@ Quit  -- 'c'
 2019/3/11:
 - [x] pySerial接收stm32发来的字节并解析成列表, 存储成\*.npy格式(./SerialRead.py)
 - [x] 用PyQt4开发简单的图形界面, 实现同样的功能(./gui.py)
+
+2019/3/19:
+- [x] 完善GUI界面，可在GUI中修改串口, 波特率等信息 ./gui.py
+- [ ] 接收文本框和发送文本框功能尚未实现, 接收到的数据仍然存储在\*.npy文件中
 
 
 # 参考资料

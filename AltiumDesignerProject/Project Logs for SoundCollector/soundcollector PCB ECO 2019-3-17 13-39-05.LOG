@@ -1,0 +1,6 @@
+Added Component: Designator=S8050-2(SOT-23)
+Added Pin To Net: NetName=NetC4_2 Pin=S8050-2-1
+Added Pin To Net: NetName=GND Pin=S8050-2-2
+Added Pin To Net: NetName=RESET_1 Pin=S8050-2-3
+Added Member To Class: ClassName=soundcollector Member=Component S8050-2 NPN
+Added Room: Name=soundcollector

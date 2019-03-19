@@ -1,0 +1,11 @@
+Added Component: Designator=Q1(SOT-23)
+Added Component: Designator=Q2(SOT-23)
+Added Pin To Net: NetName=NetR2_2 Pin=Q1-1
+Added Pin To Net: NetName=BOOT0_1 Pin=Q1-2
+Added Pin To Net: NetName=3V3 Pin=Q1-3
+Added Pin To Net: NetName=NetC4_2 Pin=Q2-1
+Added Pin To Net: NetName=GND Pin=Q2-2
+Added Pin To Net: NetName=RESET_1 Pin=Q2-3
+Change Net Name : Old Net Name=NetR2_2 New Net Name=NetQ1_1
+Added Member To Class: ClassName=soundcollector Member=Component Q1 NPN
+Added Member To Class: ClassName=soundcollector Member=Component Q2 NPN
