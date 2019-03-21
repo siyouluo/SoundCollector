@@ -9,6 +9,10 @@ import serial
 import serial.tools.list_ports
 from PyQt4 import QtGui, QtCore
 from PyQt4.QtCore import QThread
+import numpy as np
+import matplotlib.pyplot as plt 
+import thread
+import time
 
 class CustomComboBox(QtGui.QComboBox):
     """docstring for CustomComboBox
@@ -87,10 +91,10 @@ class SoundCollector(QtGui.QMainWindow):
     def __init__(self, parent=None):
         super(SoundCollector, self).__init__()
         #QtGui.QMainWindow.__init__(self) #another way to initialize
-        
+        self.flag=True
         self.s = serial.Serial()#新建一个串口Object
         self.s.timeout = 1#1s未读取到串口数据则超时退出
-        self.wave = ''#存储所有串口接收到的字符
+        self.wave = np.array([])#存储所有串口接收到的字符
         
 
         self.Startbutton = QtGui.QPushButton("Start", self)
@@ -143,22 +147,36 @@ class SoundCollector(QtGui.QMainWindow):
         self.DispInTextEditradioButton.move(30, 100)
         self.DispInTextEditradioButton.setChecked(True)
         
+        self.ClearReceiveBufbutton = QtGui.QPushButton("Clear", self)
+        self.ClearReceiveBufbutton.move(300, 330)
+
+        self.SaveReceiveBufbutton = QtGui.QPushButton("Save", self)
+        self.SaveReceiveBufbutton.move(400, 330)
+        self.SaveReceiveBufbutton.setEnabled(False)
+
         self.ReceiveCharradioButton = QtGui.QRadioButton("Char", self)
-        self.ReceiveCharradioButton.move(500, 330)
-        self.ReceiveCharradioButton.setChecked(True)
-        self.ReceiveHEXradioButton = QtGui.QRadioButton("HEX", self)
-        self.ReceiveHEXradioButton.move(600, 330)
+        self.ReceiveCharradioButton.move(530, 330)
+        self.ReceiveHEXradioButton = QtGui.QRadioButton("DEC", self)#此处本应是HEX,暂未实现
+        self.ReceiveHEXradioButton.move(620, 330)
         self.ReceiveHEXradioButton.setChecked(False)
+        self.ReceiveHEXradioButton.setChecked(True)
         
         self.ReceivebuttonGroup=QtGui.QButtonGroup(self)
         self.ReceivebuttonGroup.addButton(self.ReceiveCharradioButton)
         self.ReceivebuttonGroup.addButton(self.ReceiveHEXradioButton)
 
+        self.ClearTransmitBufbutton = QtGui.QPushButton("Clear", self)
+        self.ClearTransmitBufbutton.move(300, 510)
+
+        self.SendTransmitBufbutton = QtGui.QPushButton("Send", self)
+        self.SendTransmitBufbutton.move(400, 510)
+        self.SendTransmitBufbutton.setEnabled(False)
+
         self.TransmitCharradioButton = QtGui.QRadioButton("Char", self)
-        self.TransmitCharradioButton.move(500, 510)
+        self.TransmitCharradioButton.move(530, 510)
         self.TransmitCharradioButton.setChecked(True)
         self.TransmitHEXradioButton = QtGui.QRadioButton("HEX", self)
-        self.TransmitHEXradioButton.move(600, 510)
+        self.TransmitHEXradioButton.move(620, 510)
         self.TransmitHEXradioButton.setChecked(False)
         
         self.TransmitbuttonGroup=QtGui.QButtonGroup(self)
@@ -176,6 +194,8 @@ class SoundCollector(QtGui.QMainWindow):
         self.connect(self.Startbutton, QtCore.SIGNAL('clicked()'), self.Startbutton_process)        
         self.connect(self.Stopbutton, QtCore.SIGNAL('clicked()'), self.Stopbutton_process)
         self.connect(self.OnOffSerialPortButton, QtCore.SIGNAL('clicked()'), self.OnOffSerialPortButton_process)        
+        self.connect(self.ClearReceiveBufbutton, QtCore.SIGNAL('clicked()'), self.ClearReceiveBufbutton_process)        
+        self.connect(self.ClearTransmitBufbutton, QtCore.SIGNAL('clicked()'), self.ClearTransmitBufbutton_process)        
         self.connect(self.baudrateComboBox, QtCore.SIGNAL('activated(QString)'),self.baudrateComboBox_Activated)
         self.connect(self.serialportComboBox, QtCore.SIGNAL('activated(QString)'),self.serialportComboBox_Activated)
         self.connect(self.bytesizeComboBox, QtCore.SIGNAL('activated(QString)'),self.bytesizeComboBox_Activated)
@@ -186,12 +206,30 @@ class SoundCollector(QtGui.QMainWindow):
         self.setWindowTitle('SoundCollector')
         self.setWindowIcon(QtGui.QIcon('images/littleStar.ico'))
         self.resize(750, 550)
+        self.setFixedSize(750, 550)
         self.center()
 
         self.t = MyThread()
         self.t.setIdentity("Serial Read Thread", self.s)
         self.t.signalOut.connect(self.addtoText)
         self.t.start()
+        thread.start_new_thread(self.DrawWave, ("thread: DrawWave", ))
+    def DrawWave(self, threadname):
+        while self.flag:        
+            if self.s.isOpen():
+                try:
+                    plt.clf()
+                    plt.axis([0,100000,0,255])  
+                    if len(self.wave)>100000:
+                        plt.plot(self.wave[-100000:-1])
+                    else:
+                        plt.plot(self.wave)
+                    plt.pause(0.001)
+                except Exception as e:
+                    print e
+            else:
+                plt.close('all')
+                
 
     def addtoText(self, data):
         '''
@@ -199,8 +237,20 @@ class SoundCollector(QtGui.QMainWindow):
         将一个字节的QString转换为numpy.array时占据两个字节, 
         第一个字节是对应的uint8类型，第二个字节是0
         '''
-        self.wave = self.wave + data
-        ##print np.fromstring(data, dtype=np.uint8)[::2]
+        arraydata = np.fromstring(data, dtype=np.uint8)[::2]
+        self.wave = np.hstack([self.wave, arraydata])
+        if self.DispInTextEditradioButton.isChecked():
+            if self.ReceiveHEXradioButton.isChecked():          
+                self.ReceiveQTextEdit.append(str(arraydata)[1:-1])
+                self.statusBar().showMessage('Display in Decimal!')
+            else:
+                try:
+                    self.ReceiveQTextEdit.append(str(data))
+                except Exception as e:
+                    self.statusBar().showMessage('encoded wrong!')
+                else:
+                    self.statusBar().showMessage('Display in Character!')
+                
     def closeEvent(self, event):
         '''
         关闭窗口时先将线程的flag标志改成false
@@ -220,7 +270,7 @@ class SoundCollector(QtGui.QMainWindow):
             if self.s.isOpen():
                 self.statusBar().showMessage('collecting...')
                 self.s.flushInput()
-                self.wave = ''
+                self.wave = np.array([])
                 self.s.write(b'\xa9')
             else:
                 QtGui.QMessageBox().question(self, 'msg', "The serial port has not been opened yet", QtGui.QMessageBox.Ok) 
@@ -234,7 +284,7 @@ class SoundCollector(QtGui.QMainWindow):
             if self.s.isOpen():
                 self.s.write(b'\xb9')  
                 self.statusBar().showMessage("Receive %d bytes"% len(self.wave))
-                intwave = np.fromstring(self.wave, dtype=np.uint8)[::2]
+                intwave = self.wave
                 # print type(self.wave)  #<class 'PyQt4.QtCore.QString'>
                 np.save("wave.npy",intwave)
             else:
@@ -271,6 +321,12 @@ class SoundCollector(QtGui.QMainWindow):
         except Exception as e:
             QtGui.QMessageBox().question(self, 'msg', "fail to open/close port", QtGui.QMessageBox.Ok)
             print e
+
+    def ClearReceiveBufbutton_process(self):
+        self.ReceiveQTextEdit.clear()
+    def ClearTransmitBufbutton_process(self):
+        self.TransmitQTextEdit.clear()
+
     def baudrateComboBox_Activated(self, text):
         self.s.baudrate=int(text)
         self.statusBar().showMessage("Baudrate : %s "% self.s.baudrate)
