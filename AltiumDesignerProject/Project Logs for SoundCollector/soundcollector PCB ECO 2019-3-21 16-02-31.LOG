@@ -1,0 +1,13 @@
+Removed Pin From Net: NetName=FILTERED_SIGNAL Pin=STM32-31
+Added Component: Designator=BAT54S(SOT-23)
+Added Component: Designator=R18(0805)
+Added Pin To Net: NetName=GND Pin=BAT54S-1
+Added Pin To Net: NetName=3V3 Pin=BAT54S-2
+Added Pin To Net: NetName=FILTERED_SIGNAL Pin=BAT54S-3
+Added Pin To Net: NetName=FILTERED_SIGNAL Pin=R18-2
+Added Pin To Net: NetName=NetR18_1 Pin=R18-1
+Added Pin To Net: NetName=NetR18_1 Pin=STM32-31
+Added Net: Name=NetR18_1
+Added Member To Class: ClassName=soundcollector Member=Component BAT54S
+Added Member To Class: ClassName=soundcollector Member=Component R18 Res2
+Added Room: Name=soundcollector

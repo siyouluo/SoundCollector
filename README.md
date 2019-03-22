@@ -89,9 +89,11 @@
 
 
 # 上位机
-调用`pySerial`库，接收串口数据，合成\*.wav文件，使用`pyAudio`进行播放  
-详见[./Scripts/readme.md](./Scripts/readme.md)  
+> 上位机是指可以直接发出操控命令的计算机，一般是PC/host computer/master computer/upper computer,屏幕上显示各种信号变化（液压，水位，温度等）。下位机是直接控制设备获取设备状况的计算机，一般是PLC/单片机single chip microcomputer/slave computer/lower computer之类的。上位机发出的命令首先给下位机，下位机再根据此命令解释成相应时序信号直接控制相应设备。下位机不时读取设备状态数据（一般为模拟量），转换成数字信号反馈给上位机。  
 
+使用python编程，调用`pySerial`库，向单片机发送指令，接收串口数据，
+合成\*.wav音频文件，使用`pyAudio`进行播放  
+详见[./Scripts/readme.md](./Scripts/readme.md)  
 
 # Bill of Material
 
@@ -103,7 +105,7 @@
 |电位计||3296W封装|\*|<img src="./Reference/3296W电位计/3296W电位计实物图.jpg" width="30" align=center />|
 |电容||0805封装|\*|<img src="./Reference/电容/电容实物图.jpg" width="30" align=center />|
 |单片机|数据处理和传输|stm32f103c8t6|&yen;10|<img src="./Reference/单片机最小系统/stm32f103c8t6.jpg" width="30" align=center />|
-|`CH340`模块|USB转TTL, 程序下载，单片机和上位机通信|55mm x 16mm|&yen;5|<img src="./Reference/单片机最小系统/CH340.jpg" width="30" align=center />|
+|`CH340`模块|USB转TTL, 程序下载，串口通信|55mm x 16mm|&yen;5|<img src="./Reference/单片机最小系统/CH340.jpg" width="30" align=center />|
 |PCB板|电子元器件电气连接的载体|10cm x 10cm|&yen;50/10块|\*|
 |锂电池|为整个系统供电|12V、3000mAh|&yen;47|<img src="./Reference/供电/锂电池.jpg" width="30" align=center />|
 |降压模块|为单片机等提供合适的供电电压|`LM2596`, 输出1.25~35V|&yen;2.9|<img src="./Reference/供电/降压模块.jpg" width="30" align=center />|
@@ -147,7 +149,7 @@ PC机通过串口使单片机不断地复位. 这应该是软件配置的问题,
 
 2019/3/11:
 - [x] pySerial接收stm32发来的字节并解析成列表, 存储成\*.npy格式(./SerialRead.py)
-- [x] 用PyQt4开发简单的图形界面, 实现同样的功能(./gui.py)
+- [x] 用PyQt4开发简单的图形界面, 实现同样的功能(./gui_mini.py)
 
 2019/3/12:
 - [x] 完成Altium Designer原理图绘制
@@ -162,12 +164,15 @@ PC机通过串口使单片机不断地复位. 这应该是软件配置的问题,
 2019/3/19:
 - [x] 完善上位机GUI程序;添加接收文本框和发送文本框(其功能暂未添加)
 
+2019/3/21:
+- [x] 实现实时波形图绘制
+
+2019/3/22:
+- [x] 整理部分文档资料
+
 # 友情链接
 [PCB板打样工厂-捷多邦](https://www.jdbpcb.com/)  
 [在线长度换算-ConvertLIVE](https://convertlive.com/zh/u/转换/毫米/自/密耳#1)  
-[在线流程图制作-ProcessOn](https://www.processon.com/)  
-[pySerial’s documentation](https://pythonhosted.org/pyserial/)  
-[pySerial’s documentation](https://pyserial.readthedocs.io/en/latest/index.html)  
-[PyAudio](http://people.csail.mit.edu/hubert/pyaudio/)  
+[在线流程图制作-ProcessOn](https://www.processon.com/)   
 [数据手册-ALLDATASHEET](http://www.alldatasheet.com)  
  

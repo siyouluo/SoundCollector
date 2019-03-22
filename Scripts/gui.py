@@ -4,7 +4,6 @@
 # gui.py
 
 import sys
-import numpy as np
 import serial
 import serial.tools.list_ports
 from PyQt4 import QtGui, QtCore
@@ -61,7 +60,7 @@ class MyThread(QThread):
     def setIdentity(self,text,serialObject):
         self.identity = text
         self.ser=serialObject    #将串口类传入线程，执行串口读取
-        print self.identity
+        #print self.identity
 
     def run(self):
         '''

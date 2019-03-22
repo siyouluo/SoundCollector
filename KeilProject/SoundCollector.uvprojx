@@ -429,11 +429,6 @@
               <FilePath>.\App\IndicatorLight.c</FilePath>
             </File>
             <File>
-              <FileName>oled.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\App\oled.c</FilePath>
-            </File>
-            <File>
               <FileName>adc.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\App\adc.c</FilePath>
@@ -444,11 +439,6 @@
           <GroupName>Public</GroupName>
           <Files>
             <File>
-              <FileName>iic.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Public\iic.c</FilePath>
-            </File>
-            <File>
               <FileName>system.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Public\system.c</FilePath>
@@ -457,11 +447,6 @@
               <FileName>SysTick.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Public\SysTick.c</FilePath>
-            </File>
-            <File>
-              <FileName>usart3.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Public\usart3.c</FilePath>
             </File>
             <File>
               <FileName>usart1.c</FileName>
