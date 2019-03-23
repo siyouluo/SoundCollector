@@ -92,7 +92,7 @@
 > 上位机是指可以直接发出操控命令的计算机，一般是PC/host computer/master computer/upper computer,屏幕上显示各种信号变化（液压，水位，温度等）。下位机是直接控制设备获取设备状况的计算机，一般是PLC/单片机single chip microcomputer/slave computer/lower computer之类的。上位机发出的命令首先给下位机，下位机再根据此命令解释成相应时序信号直接控制相应设备。下位机不时读取设备状态数据（一般为模拟量），转换成数字信号反馈给上位机。  
 
 使用python编程，调用`pySerial`库，向单片机发送指令，接收串口数据，
-合成\*.wav音频文件，使用`pyAudio`进行播放  
+合成\*.wav音频文件，使用`winsound`进行播放  
 详见[./Scripts/readme.md](./Scripts/readme.md)  
 
 # Bill of Material
@@ -169,6 +169,9 @@ PC机通过串口使单片机不断地复位. 这应该是软件配置的问题,
 
 2019/3/22:
 - [x] 整理部分文档资料
+
+2019/3/23:
+- [x] 实现音频文件的读写与播放
 
 # 友情链接
 [PCB板打样工厂-捷多邦](https://www.jdbpcb.com/)  

@@ -256,6 +256,8 @@ class SoundCollector(QtGui.QMainWindow):
         使线程终止
         '''
         self.t.flag=False
+        self.flag=False
+        time.sleep(0.1)
         sys.exit("goodbye!")
 
     def center(self):
