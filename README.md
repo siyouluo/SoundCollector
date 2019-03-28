@@ -61,7 +61,7 @@
 实际选用某宝上的一款stm32f103c8t6最小系统板, 已焊接晶振和
 复位电路, 并引出管脚, 使用DIP40封装.  
 
-## Pin Assignment
+**Pin Assignment**
 
 |用途      |管脚          |管脚        |用途        |
 |:--------|:-------------|:-----------|:----------|
@@ -86,6 +86,7 @@
 |         |G	         |C13         |led        |
 |         |3V3           |VB          |           |
 
+详见[./KeilProject/readme.md](./KeilProject/readme.md)
 
 
 # 上位机
@@ -99,16 +100,16 @@
 
 |元件|功能|主要参数|参考价格|图片|
 |---|---|---|---|---|
-|咪头|将音频信号转换为电信号|52dB拾音器带引脚9*7mm|&yen;1.85/5个|<img src="./Reference/咪头/咪头.jpg" width="30" align=center />|
-|集成运放|信号放大, 偏置, 滤波|LM358, SOP8封装|&yen;0.32|<img src="./Reference/SignalAmplifier/LM358/LM358.jpg" width="30" align=center />|
-|电阻||0805封装|\*|<img src="./Reference/电阻/电阻实物图.jpg" width="30" align=center />|
-|电位计||3296W封装|\*|<img src="./Reference/3296W电位计/3296W电位计实物图.jpg" width="30" align=center />|
-|电容||0805封装|\*|<img src="./Reference/电容/电容实物图.jpg" width="30" align=center />|
-|单片机|数据处理和传输|stm32f103c8t6|&yen;10|<img src="./Reference/单片机最小系统/stm32f103c8t6.jpg" width="30" align=center />|
-|`CH340`模块|USB转TTL, 程序下载，串口通信|55mm x 16mm|&yen;5|<img src="./Reference/单片机最小系统/CH340.jpg" width="30" align=center />|
+|咪头|将音频信号转换为电信号|52dB拾音器带引脚9*7mm|&yen;1.85/5个|<img src="./images/咪头.jpg" width="30" align=center />|
+|集成运放|信号放大, 偏置, 滤波|LM358, SOP8封装|&yen;0.32|<img src="./images/LM358.jpg" width="30" align=center />|
+|电阻||0805封装|\*|<img src="./images/电阻实物图.jpg" width="30" align=center />|
+|电位计||3296W封装|\*|<img src="./images/3296W电位计实物图.jpg" width="30" align=center />|
+|电容||0805封装|\*|<img src="./images/电容实物图.jpg" width="30" align=center />|
+|单片机|数据处理和传输|stm32f103c8t6|&yen;10|<img src="./images/stm32f103c8t6.jpg" width="30" align=center />|
+|`CH340`模块|USB转TTL, 程序下载，串口通信|55mm x 16mm|&yen;5|<img src="./images/CH340.jpg" width="30" align=center />|
 |PCB板|电子元器件电气连接的载体|10cm x 10cm|&yen;50/10块|\*|
-|锂电池|为整个系统供电|12V、3000mAh|&yen;47|<img src="./Reference/供电/锂电池.jpg" width="30" align=center />|
-|降压模块|为单片机等提供合适的供电电压|`LM2596`, 输出1.25~35V|&yen;2.9|<img src="./Reference/供电/降压模块.jpg" width="30" align=center />|
+|锂电池|为整个系统供电|12V、3000mAh|&yen;47|<img src="./images/锂电池.jpg" width="30" align=center />|
+|降压模块|为单片机等提供合适的供电电压|`LM2596`, 输出1.25~35V|&yen;2.9|<img src="./images/降压模块.jpg" width="30" align=center />|
 
 
 # Develop Log

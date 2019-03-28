@@ -1,0 +1,17 @@
+Field=Comment~String~Comment~100|Field=Description~String~Description~100|Field=Designator~String~Designator~100|Field=Footprint~String~Footprint~100|Field=LibRef~String~LibRef~100|Field=Quantity~Integer~Quantity~100|Field=Value~String~Value~100|ReportField=Currency~<none>|ReportField=ProductionQuantity~1|ReportField=ProjectFileName~SoundCollector.PrjPcb|ReportField=ProjectFullPath~C:\Users\LiRen\Desktop\SoundCollector\AltiumDesignerProject\SoundCollector.PrjPcb|ReportField=Title~Bill of Materials For Project [SoundCollector.PrjPcb] (No PCB Document Selected)|ReportField=TotalQuantity~47|ReportField=ReportTime~11:51:29|ReportField=ReportDate~2019/3/25|ReportField=ReportDateTime~2019/3/25 11:51:29|ReportField=OutputName~Bill of Materials|ReportField=OutputType~BOM_PartType|ReportField=GeneratorName~BOM|ReportField=GeneratorDescription~Bill of Materials|ReportField=VariantName~None|ReportField=Address1~|ReportField=Address2~|ReportField=Address3~|ReportField=Address4~|ReportField=ApprovedBy~|ReportField=Author~Luo Siyou|ReportField=CheckedBy~|ReportField=CompanyName~|ReportField=CurrentDate~2019/3/25|ReportField=CurrentTime~11:48:11|ReportField=Date~|ReportField=DocumentFullPathAndName~C:\Users\LiRen\Desktop\SoundCollector\AltiumDesignerProject\soundcollector.SchDoc|ReportField=DocumentName~soundcollector.SchDoc|ReportField=DocumentNumber~|ReportField=DrawnBy~Luo siyou|ReportField=Engineer~|ReportField=ImagePath~|ReportField=ModifiedDate~2019/3/25|ReportField=Organization~|ReportField=ProjectName~SoundCollector.PrjPcb|ReportField=Revision~|ReportField=Rule~|ReportField=SheetNumber~|ReportField=SheetTotal~|ReportField=Time~|ReportField=Title~Sound Collector|ReportField=DataSourceFileName~SoundCollector.PrjPcb|ReportField=DataSourceFullPath~C:\Users\LiRen\Desktop\SoundCollector\AltiumDesignerProject\SoundCollector.PrjPcb
+SWITCH|船形开关|117S|117S|117S|1|
+BAT54S||BAT54S|SOT-23|BAT54S|1|
+Cap|Capacitor|C1, C2, C3, C4, C5, C6, C7, C8, C9, C10, C11, C12, C13, C14|0805|Cap|14|0.01uF, 0.1uF, 1uF, 10uF, 22uF, 47uF, 100pF, 104
+USB2TTL|电平转换芯片|CH340C|SOP16|CH340|1|
+DC_CONNECTOR|直流电源插座|DC005|DC005|DC005|1|
+OPA|集成运放|LM358-1, LM358-2|SOP-8|LM358|2|
+DC CONVERTER|直流降压模块|LM2596|LM2596S|LM2596|1|
+microUSB_CONNECTOR|将microUSB转换成SIP接口|microUSB|MicroUSB-SIP-5|microUSB|1|
+Mic1|Microphone|MK|PIN2|Mic1|1|
+串口引出管脚|Header, 4-Pin|P1|HDR1X4|Header 4|1|
+NPN|NPN三极管|Q1, Q2|SOT-23|S8050|2|
+Res2|Resistor|R1, R2, R3, R7, R8, R9, R10, R11, R12, R13, R14, R15, R16, R17, R18|0805|Res2|15|1.5K, 1K, 10K, 100K
+10K||R4, R5|3296W|RPOT|2|
+200K||R6|3296W|RPOT|1|
+STM32F103C8T6|单片机最小系统|STM32|MCU|STM32|1|
+Jumper|Jumper Wire|W1, W2|HDR1X2|Jumper|2|
