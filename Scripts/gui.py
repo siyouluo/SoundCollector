@@ -49,7 +49,7 @@ class MyThread(QThread):
     参考自：
     http://www.voidcn.com/article/p-risthuvv-bdr.html
     '''
-    signalOut = QtCore.pyqtSignal(str)
+    signalOut = QtCore.pyqtSignal(list)
 
     def __init__(self,parent=None):
         super(MyThread,self).__init__(parent)
@@ -71,8 +71,10 @@ class MyThread(QThread):
                 try:
                     Bytes = self.ser.in_waiting #读取串口缓冲区中字节数
                     if Bytes>0:
-                        data = self.ser.read(Bytes)#将缓冲区中字节全部读出
-                        self.signalOut.emit(data)
+                        data = self.ser.read(Bytes)#将缓冲区中字节全部读出                        
+                        data = np.fromstring(data, np.uint8)
+                        self.signalOut.emit(list(data))
+                        #print(len(data))
                         #data是str类型, 但被槽函数接收之后变成了QString类型
                 except Exception as e:
                     pass
@@ -231,25 +233,20 @@ class SoundCollector(QtGui.QMainWindow):
                 
 
     def addtoText(self, data):
-        '''
-        从另一个线程中的信号发射的数据，在这里接收
-        将一个字节的QString转换为numpy.array时占据两个字节, 
-        第一个字节是对应的uint8类型，第二个字节是0
-        '''
-        arraydata = np.fromstring(data, dtype=np.uint8)[::2]
-        self.wave = np.hstack([self.wave, arraydata])
+        #print(data)
+        self.wave = np.hstack([self.wave, data])
         if self.DispInTextEditradioButton.isChecked():
             if self.ReceiveHEXradioButton.isChecked():          
-                self.ReceiveQTextEdit.append(str(arraydata)[1:-1])
+                self.ReceiveQTextEdit.append(str(data)[1:-1])
                 self.statusBar().showMessage('Display in Decimal!')
             else:
                 try:
-                    self.ReceiveQTextEdit.append(str(data))
+                    self.ReceiveQTextEdit.append(''.join(chr(i) for i in data))
                 except Exception as e:
                     self.statusBar().showMessage('encoded wrong!')
                 else:
                     self.statusBar().showMessage('Display in Character!')
-                
+
     def closeEvent(self, event):
         '''
         关闭窗口时先将线程的flag标志改成false

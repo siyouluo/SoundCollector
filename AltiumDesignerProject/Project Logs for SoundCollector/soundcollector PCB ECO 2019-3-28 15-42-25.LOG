@@ -1,0 +1,6 @@
+Change Component Description : Designator=R4 Old Description=精密电位计 New Description=
+Change Component Description : Designator=R5 Old Description=精密电位计 New Description=
+Change Component Description : Designator=R6 Old Description=精密电位计 New Description=
+Change Component Description : Designator=BAT54S Old Description=肖特基二极管 New Description=
+Added Pin To Net: NetName=GND Pin=R5-3
+Added Room: Name=soundcollector
