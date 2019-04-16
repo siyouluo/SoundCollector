@@ -1,9 +1,14 @@
-Output: Bill of Materials
-Type  : BOM
+Output: NC Drill Files
+Type  : NC Drill
 From  : Project [SoundCollector.PrjPcb]
+   Generated File[soundcollector-RoundHoles.TXT]
+   Generated File[soundcollector-SlotHoles.TXT]
+   Generated File[soundcollector.DRL]
+   Generated File[soundcollector.LDP]
+   Generated File[soundcollector.DRR]
 
 
-Files Generated   : 0
+Files Generated   : 5
 Documents Printed : 0
 
-Finished Output Generation At 11:52:24 On 2019/3/25
+Finished Output Generation At 19:00:33 On 2019/4/13

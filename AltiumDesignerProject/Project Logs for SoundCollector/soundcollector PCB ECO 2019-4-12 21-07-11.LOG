@@ -1,0 +1,11 @@
+Added Component: Designator=P2(HDR1X4)
+Added Pin To Net: NetName=5V Pin=P2-1
+Added Pin To Net: NetName=GND Pin=P2-2
+Added Pin To Net: NetName=NetP2_3 Pin=P2-3
+Added Pin To Net: NetName=NetP2_3 Pin=STM32-28
+Added Net: Name=NetP2_3
+Added Pin To Net: NetName=NetP2_4 Pin=P2-4
+Added Pin To Net: NetName=NetP2_4 Pin=STM32-27
+Added Net: Name=NetP2_4
+Added Member To Class: ClassName=soundcollector Member=Component P2 串口引出管脚
+Added Room: Name=soundcollector

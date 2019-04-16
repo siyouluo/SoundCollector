@@ -1,0 +1,23 @@
+---------------------------------------------------------------------------
+NCDrill File Report For: soundcollector.PcbDoc   2019/4/13  19:00:32
+---------------------------------------------------------------------------
+
+Layer Pair : Top Layer to Bottom Layer
+ASCII RoundHoles File : soundcollector-RoundHoles.TXT
+ASCII SlotHoles File : soundcollector-SlotHoles.TXT
+EIA File   : soundcollector.DRL
+
+Tool         Hole Size           Hole Type     Hole Count Plated       Tool Travel
+---------------------------------------------------------------------------
+T1        15mil (0.381mm)          Round          12               8.66 Inch (219.90 mm)
+T2        24mil (0.6096mm)         Slot           3                284.09 Inch (7215.79 mm)
+T3        27mil (0.6858mm)         Slot           2                284.33 Inch (7222.06 mm)
+T4        30mil (0.762mm)          Round          14               4.98 Inch (126.39 mm)
+T5        35mil (0.889mm)          Round          40               5.20 Inch (132.08 mm)
+T6        35.43mil (0.89992mm)     Round          14               4.98 Inch (126.52 mm)
+T7        37mil (0.9398mm)         Round          5                0.40 Inch (10.16 mm)
+T8        100mil (2.54mm)          Round          4                12.42 Inch (315.41 mm)
+---------------------------------------------------------------------------
+Totals                                            94               605.05 Inch (15368.30 mm)
+
+Total Processing Time (hh:mm:ss) : 00:00:00

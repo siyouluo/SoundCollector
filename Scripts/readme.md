@@ -99,7 +99,7 @@ os.remove(wav_file_name)#删除文件
 
 
 # 串口接收
-file: SerialRead.py  
+**file:** SerialRead.py  
 **Dependencies:** `python2.x`;`pip`;`NumPy`;`pyserial`;  
 **说明**  
 调用pySerial控制串口, 由PC机向stm32发送开始采集命令(由命令行读入'a', 串口发送 b'\xa9' ),
@@ -121,7 +121,7 @@ file: SerialRead.py
 <img src="./images/run_SerialRead.py.png" width="400" align=center />  
 
 # 小型GUI
-file ./gui_mini.py; ./images/littleStar.ico  
+**file:** ./gui_mini.py; ./images/littleStar.ico  
 **Dependencies:** `python2.x`;`pip`;`NumPy`;`pyserial`;`PyQt4`;  
 这部分程序功能和SerialRead.py一样, 只是用按钮替换命令行字符命令:  
 Start -- 'a'  
@@ -130,7 +130,7 @@ Stop  -- 'b'
 	usage:	
 	将PC机用USB转ttl模块连接到stm32  
 	打开cmd窗口, 进入的程序所在路径  
-	python gui.py  
+	python gui_mini.py  
 	点击Start按钮  
 	...  
 	点击Stop按钮  
@@ -144,8 +144,6 @@ Stop  -- 'b'
 readwave.py将读取当前目录下的wave.npy文件，调用matplotlib绘制波形图  
 
 # 串口助手GUI
-file: ./gui.py; ./images/littleStar.ico
-
 	上面分别用命令行和一个小型的GUI程序实现了串口数据的获取(这两个程序不再进行维护更新)，
 	接下来我要开发一个功能更加全面的串口助手，它首先能实现前面两个程序的功能，
 	但我希望它同时具有一般的串口助手该有的功能(我以后可能会把它用在其他地方)，
@@ -153,8 +151,8 @@ file: ./gui.py; ./images/littleStar.ico
 	对于本项目还需要实时的波形绘制以及音频播放。
 	它可能会过于繁杂，且限于本人水平，暂时可能会不够稳定，但我会一步步完善它，
 	并尽量使得代码容易理解。
-
-**Dependencies:** `python2.x`;`pip`;`NumPy`;`matplotlib`;`pyserial`;`PyQt4`; 
+**file:** ./QtProject/gui.py; ./QtProject/images/littleStar.ico; ./QtProject/Ui_demo.py;  
+**Dependencies:** `python2.x`;`pip`;`NumPy`;`matplotlib`;`pyserial`;`PyQt4`;`PyQtGraph`;  
 
 **python2.x**  
 > Python is a programming language that lets you work more quickly and integrate your systems more effectively.
@@ -196,6 +194,7 @@ pip 9.0.3 from d:\xxx\lib\site-packages (python 2.7)
 
 
 **matplotlib**  
+*运行最新版的上位机将不再需要matplotlib,而是使用PyQtGraph作为替代.*  
 > Matplotlib is a Python 2D plotting library which produces publication quality figures in a variety of hardcopy formats and interactive environments across platforms. 
 
 对于python2需要Matplotlib 2.2.x  
@@ -224,6 +223,14 @@ pip 9.0.3 from d:\xxx\lib\site-packages (python 2.7)
 3.4
 ```
 
+[自动搜索系统串口号](https://pythonhosted.org/pyserial/tools.html#module-serial.tools.list_ports)  
+```cmd
+:cmd运行 查看所有串口
+> python -m serial.tools.list_ports
+COM3
+1 ports found
+```
+
 **PyQt4**  
 [PyQt官网](https://riverbankcomputing.com/software/pyqt/intro)  
 安装PyQt4  
@@ -243,18 +250,33 @@ pip 9.0.3 from d:\xxx\lib\site-packages (python 2.7)
 [PyQt4教程](http://www.qaulau.com/books/PyQt4_Tutorial/)  
 [PyQt4入门指南 PDF中文版](https://linux.linuxidc.com/index.php?folder=MjAxMsTq18rBzy821MIvMjTI1S9QeVF0NMjrw8XWuMTPIFBERtbQzsSw5g==)
 
+**PyQtGraph**  
+> PyQtGraph is a graphics and user interface library for Python that provides functionality commonly required in engineering and science applications.  
+
+compare to matplotlib:  
+> For plotting, pyqtgraph is not nearly as complete/mature as matplotlib, but runs much faster. Matplotlib is more aimed toward making publication-quality graphics, whereas pyqtgraph is intended for use in data acquisition and analysis applications. Matplotlib is more intuitive for matlab programmers; pyqtgraph is more intuitive for python/qt programmers. Matplotlib (to my knowledge) does not include many of pyqtgraph’s features such as image interaction, volumetric rendering, parameter trees, flowcharts, etc  
+[PyQtGraph官网](http://www.pyqtgraph.org/)  
+[documentation for pyqtgraph](http://www.pyqtgraph.org/documentation/)  
+[PyQtGraph安装](http://www.pyqtgraph.org/documentation/installation.html)或者[PyQtGraph官网](http://www.pyqtgraph.org/)  
+```cmd
+:cmd运行 查看pyqtgraph版本号
+>python -c "import pyqtgraph;print pyqtgraph.__version__"
+0.10.0
+```
+
 ### Accomplished
 - [x] 通过GUI界面设定串口连接的参数(例如，串口号，波特率等)
 - [x] 点击串口号下拉列表控件时，刷新串口列表，当系统没有串口时弹框提示
 - [x] 有接收文本框，可以显示接收到的串口数据，可以选择以十进制或字符格式显示
 - [x] 可以将接收到的串口数据以波形图的形式实时显示
+- [x] 修复无法接收QString('\x00')的问题
 
 ### Bug or Requirement
 - [ ] 需要添加发送文本框，可选择将文本框内输入的字符解释为字符串或者十六进制数据
-- [ ] 画图和接收文本框同时刷新时会导致程序崩溃
-- [ ] 当单片机AD输入口电压为0时接收到空字符，绘图窗口停止更新，AD电压不为0时波形图继续更新.
+- [x] 画图和接收文本框同时刷新时会导致程序崩溃
+- [x] 当单片机AD输入口电压为0时接收到空字符，绘图窗口停止更新，AD电压不为0时波形图继续更新.
 猜想可能是Qstring和numpy编码格式的问题，numpy将QString中的'\x00'解释成了numpy.array([])
-- [ ] 将波形图界面放到应用窗口内部
+- [x] 将波形图界面放到应用窗口内部
 - [ ] 当前只是实现了串口数据的读取和存储，但未转换成\*.wav音频文件
 - [ ] 打包代码，生成\*.exe文件，使其能够在大多数机器上直接运行，而不需要安装众多的依赖库
 
@@ -262,6 +284,7 @@ pip 9.0.3 from d:\xxx\lib\site-packages (python 2.7)
 <img src="./images/gui.png" width="400" align=center />  
 上图是最新版的GUI界面效果展示  
 说明：  
+
 1. 在cmd窗口运行gui.py后，显示SoundCollector应用窗口  
 2. 波特率，数据位，停止位，校验位都已经默认设置好(用户也可以更改)  
 3. 点击串口号下拉列表，程序开始扫描系统串口号并添加到列表中，
@@ -292,6 +315,18 @@ pip 9.0.3 from d:\xxx\lib\site-packages (python 2.7)
 
 2019/3/21:
 - [x] 实现音频文件的读写播放
+
+2019/3/31:
+- [x] 修复已知bug
+
+2019/4/1:
+- [x] 从.py文件手动生成.pyc:python -m compileall \*.py
+- [x] 运行.pyc时不多打开一个无用的控制台窗口: 使用pythonw.exe执行而不是python.exe
+
+2019/4/16:
+- [x] 用Qt Designer重新设计上位机界面,将波形图绘制嵌入到应用程序内部,
+通过单选框防止接收文本和波形图同时刷新导致的程序崩溃现象.新的上位机文件放置在Scripts/QtProject路径下.
+运行方式: > python gui.py
 
 # 参考资料
 [PyQt4 Reference Guide](http://pyqt.sourceforge.net/Docs/PyQt4/)  

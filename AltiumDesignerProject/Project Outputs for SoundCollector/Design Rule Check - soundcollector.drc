@@ -1,18 +1,18 @@
 Protel Design System Design Rule Check
 PCB File : C:\Users\LiRen\Desktop\SoundCollector\AltiumDesignerProject\soundcollector.PcbDoc
-Date     : 2019/3/25
-Time     : 11:08:12
+Date     : 2019/4/12
+Time     : 21:25:20
 
-Processing Rule : Width Constraint (Min=30mil) (Max=60mil) (Preferred=50mil) (InNet('3V3'))
+Processing Rule : Width Constraint (Min=25mil) (Max=35mil) (Preferred=30mil) (InNet('3V3'))
 Rule Violations :0
 
-Processing Rule : Width Constraint (Min=30mil) (Max=60mil) (Preferred=50mil) (InNet('12V'))
+Processing Rule : Width Constraint (Min=25mil) (Max=35mil) (Preferred=30mil) (InNet('12V'))
 Rule Violations :0
 
-Processing Rule : Width Constraint (Min=30mil) (Max=60mil) (Preferred=50mil) (InNet('5V'))
+Processing Rule : Width Constraint (Min=25mil) (Max=35mil) (Preferred=30mil) (InNet('5V'))
 Rule Violations :0
 
-Processing Rule : Width Constraint (Min=15mil) (Max=50mil) (Preferred=20mil) (All)
+Processing Rule : Width Constraint (Min=15mil) (Max=20mil) (Preferred=15mil) (All)
 Rule Violations :0
 
 Processing Rule : Net Antennae (Tolerance=0mil) (All)
@@ -36,7 +36,7 @@ Rule Violations :0
 Processing Rule : Height Constraint (Min=0mil) (Max=1000mil) (Prefered=500mil) (All)
 Rule Violations :0
 
-Processing Rule : Width Constraint (Min=30mil) (Max=70mil) (Preferred=60mil) (InNet('GND'))
+Processing Rule : Width Constraint (Min=25mil) (Max=35mil) (Preferred=30mil) (InNet('GND'))
 Rule Violations :0
 
 Processing Rule : Power Plane Connect Rule(Relief Connect )(Expansion=20mil) (Conductor Width=10mil) (Air Gap=10mil) (Entries=4) (All)
@@ -53,4 +53,4 @@ Rule Violations :0
 
 
 Violations Detected : 0
-Time Elapsed        : 00:00:01
+Time Elapsed        : 00:00:00

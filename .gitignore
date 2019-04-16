@@ -3,3 +3,4 @@ AltiumDesignerProject/History/*
 History/*
 Scripts/test.py
 Scripts/gui_mini.py
+Scripts/*.pyc
