@@ -1,5 +1,6 @@
 #include "usart1.h"
 #include "adc.h"
+#include "timer.h"
 uint8_t USART1_RECEIEVE_QUEUE_BUF[USART1_MAX_QUEUE_BUF_SIZE];//USART1串口缓冲区
 uint8_t USART1_QUEUE_REAR=0;//串口缓冲区队列尾，入队位置
 uint8_t USART1_QUEUE_FRONT=0;//串口缓冲区队列首，出队位置

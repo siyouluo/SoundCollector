@@ -63,28 +63,28 @@
 
 **Pin Assignment**
 
-|用途      |管脚          |管脚        |用途        |
-|:--------|:-------------|:-----------|:----------|
-|         |B12           |G           |           |
-|         |B13           |G           |           |
-|         |B14           |3V3         |           |
-|         |B15           |R           |           |
-|         |A8            |B11         |           |
-|CH340(RX)|A9(USART1_TX) |B10         |           |
-|CH340(TX)|A10(USART1_RX)|B1          |           |
-|         |A11           |B0          |           |
-|         |A12           |A7          |           |
-|         |A15           |A6(ADC1_IN6)|模拟音频信号|
-|         |B3            |A5          |           |
-|         |B4            |A4          |           |
-|         |B5            |A3          |           |
-|         |B6            |A2          |           |
-|         |B7            |A1          |           |
-|         |B8            |A0          |           |
-|         |B9            |C15         |           |
-|         |5V	         |C14         |           |
-|         |G	         |C13         |led        |
-|         |3V3           |VB          |           |
+|用途      |管脚          |管脚         |用途        |
+|:--------|:-------------|:----------- |:----------|
+|         |B12           |G            |           |
+|         |B13           |G            |           |
+|         |B14           |3V3          |           |
+|         |B15           |R            |           |
+|         |A8            |B11          |           |
+|CH340(RX)|A9(USART1_TX) |B10          |           |
+|CH340(TX)|A10(USART1_RX)|B1           |           |
+|         |A11           |B0           |           |
+|         |A12           |A7           |           |
+|         |A15           |A6(ADC1_IN6) |模拟音频信号|
+|         |B3            |A5           |           |
+|         |B4            |A4           |           |
+|         |B5            |A3(USART2_RX)|HC05_TX    |
+|         |B6            |A2(USART2_TX)|HC05_RX    |
+|         |B7            |A1           |           |
+|         |B8            |A0           |           |
+|         |B9            |C15          |           |
+|         |5V	         |C14          |           |
+|         |G	         |C13          |led        |
+|         |3V3           |VB           |           |
 
 详见[./KeilProject/readme.md](./KeilProject/readme.md)
 
@@ -107,10 +107,20 @@
 |电容||0805封装|\*|<img src="./Images/电容实物图.jpg" width="30" align=center />|
 |单片机|数据处理和传输|stm32f103c8t6|&yen;10|<img src="./Images/stm32f103c8t6.jpg" width="30" align=center />|
 |`CH340`模块|USB转TTL, 程序下载，串口通信|55mm x 16mm|&yen;5|<img src="./Images/CH340.jpg" width="30" align=center />|
-|PCB板|电子元器件电气连接的载体|10cm x 10cm|&yen;50/10块|\*|
+|PCB板|电子元器件电气连接的载体|10cm x 10cm|&yen;50/10块|<img src="./Images/PCB板.jpg" width="30" align=center />|
 |锂电池|为整个系统供电|12V、3000mAh|&yen;47|<img src="./Images/锂电池.jpg" width="30" align=center />|
 |降压模块|为单片机等提供合适的供电电压|`LM2596`, 输出1.25~35V|&yen;2.9|<img src="./Images/降压模块.jpg" width="30" align=center />|
+|蓝牙模块|无线通信|HC-05,一对|&yen;15.5/个|<img src="./Images/蓝牙模块.jpg" width="30" align=center />|
 
+# 成果展示
+<img src="./Images/成果实物图1.jpg" height="150" align=center />
+<img src="./Images/成果实物图2.jpg" height="150" align=center />
+<img src="./Scripts/images/gui.png" height="150" align=center />  
+
+声音信号由咪头采集，经过放大，加直流偏置，滤波，AD转换，被单片机采集到，然后可以通过USB数据线或者一对蓝牙模块发送给上位机，合成音频文件并播放。  
+如果选择用USB数据线传输，可以不用外接电源，因为USB可以给系统提供5V电压；如果选择无线蓝牙传输，则需要外接12V锂电池，同时其中一个蓝牙模块连接到stm32的USART2，另一个通过CH340模块连接到PC机。  
+受限于串口波特率，stm32中最好不要同时使用USART1和USART2发送数据，可能会导致缓冲区满，丢失数据。  
+另外，当串口数据超出100 ~ 200的范围时，音频播放噪声较大，所以咪头采集时离声源的距离应该适当。尽管stm32的AD采集管脚处外接了BAT54S限压，也不要使信号长时间处于较高电压。  
 
 # Develop Log
 
@@ -180,6 +190,13 @@ PC机通过串口使单片机不断地复位. 这应该是软件配置的问题,
 
 2019/4/16:
 - [x] 优化上位机
+
+2019/4/25:
+- [x] 完成PCB板焊接与调试
+- [x] 为单片机添加USART2驱动，可通过蓝牙发送数据，但受限于波特率，USART1和USART2不可同时使用
+
+2019/4/27:
+- [x] 优化上位机，添加音乐播放按钮
 
 # 友情链接
 [PCB板打样工厂-捷多邦](https://www.jdbpcb.com/)  

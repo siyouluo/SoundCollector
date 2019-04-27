@@ -3,7 +3,7 @@
 # 硬件资源
 模数转换单元ADC1 通道6  
 通用定时器 TIMER4  
-串口 USART1  
+串口 USART1 USART2  
 板载 LED  
 系统定时器 SysTick
 

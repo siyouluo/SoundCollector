@@ -152,7 +152,7 @@ readwave.py将读取当前目录下的wave.npy文件，调用matplotlib绘制波
 	它可能会过于繁杂，且限于本人水平，暂时可能会不够稳定，但我会一步步完善它，
 	并尽量使得代码容易理解。
 **file:** ./QtProject/gui.py; ./QtProject/images/littleStar.ico; ./QtProject/Ui_demo.py;  
-**Dependencies:** `python2.x`;`pip`;`NumPy`;`matplotlib`;`pyserial`;`PyQt4`;`PyQtGraph`;  
+**Dependencies:** `python2.x`;`pip`;`wave`;`winsound`;`NumPy`;`matplotlib`;`pyserial`;`PyQt4`;`PyQtGraph`;  
 
 **python2.x**  
 > Python is a programming language that lets you work more quickly and integrate your systems more effectively.
@@ -255,6 +255,7 @@ COM3
 
 compare to matplotlib:  
 > For plotting, pyqtgraph is not nearly as complete/mature as matplotlib, but runs much faster. Matplotlib is more aimed toward making publication-quality graphics, whereas pyqtgraph is intended for use in data acquisition and analysis applications. Matplotlib is more intuitive for matlab programmers; pyqtgraph is more intuitive for python/qt programmers. Matplotlib (to my knowledge) does not include many of pyqtgraph’s features such as image interaction, volumetric rendering, parameter trees, flowcharts, etc  
+
 [PyQtGraph官网](http://www.pyqtgraph.org/)  
 [documentation for pyqtgraph](http://www.pyqtgraph.org/documentation/)  
 [PyQtGraph安装](http://www.pyqtgraph.org/documentation/installation.html)或者[PyQtGraph官网](http://www.pyqtgraph.org/)  
@@ -264,23 +265,24 @@ compare to matplotlib:
 0.10.0
 ```
 
-### Accomplished
+## Accomplished
 - [x] 通过GUI界面设定串口连接的参数(例如，串口号，波特率等)
 - [x] 点击串口号下拉列表控件时，刷新串口列表，当系统没有串口时弹框提示
 - [x] 有接收文本框，可以显示接收到的串口数据，可以选择以十进制或字符格式显示
 - [x] 可以将接收到的串口数据以波形图的形式实时显示
 - [x] 修复无法接收QString('\x00')的问题
+- [x] 为GUI界面添加播放按钮，波形采集完成后可点击播放
 
-### Bug or Requirement
+## Bug or Requirement
 - [ ] 需要添加发送文本框，可选择将文本框内输入的字符解释为字符串或者十六进制数据
 - [x] 画图和接收文本框同时刷新时会导致程序崩溃
 - [x] 当单片机AD输入口电压为0时接收到空字符，绘图窗口停止更新，AD电压不为0时波形图继续更新.
 猜想可能是Qstring和numpy编码格式的问题，numpy将QString中的'\x00'解释成了numpy.array([])
 - [x] 将波形图界面放到应用窗口内部
-- [ ] 当前只是实现了串口数据的读取和存储，但未转换成\*.wav音频文件
+- [x] 当前只是实现了串口数据的读取和存储，但未转换成\*.wav音频文件
 - [ ] 打包代码，生成\*.exe文件，使其能够在大多数机器上直接运行，而不需要安装众多的依赖库
 
-### example
+## example
 <img src="./images/gui.png" width="400" align=center />  
 上图是最新版的GUI界面效果展示  
 说明：  
@@ -289,13 +291,14 @@ compare to matplotlib:
 2. 波特率，数据位，停止位，校验位都已经默认设置好(用户也可以更改)  
 3. 点击串口号下拉列表，程序开始扫描系统串口号并添加到列表中，
 用户点击所需要的串口号即可完成设置(界面下方的状态条有相应提示)  
-4. 点击Open按钮即可打开串口，这时会弹出波形图绘制窗口，但没有任何数据  
+4. 点击Open按钮即可打开串口  
 5. 点击Start按钮，上位机发送'\xa9'字节给串口设备(MCU)，单片机随后将采集到的AD数据发送给上位机.
-上位机用接收到的串口数据绘制波形图，最多显示最新的100 000个数据点  
-6. 点击Stop按钮，上位机发送'\xb9'字节给串口设备(MCU)， 单片机随后停止采集.  
-同时上位机将接收到的所有数据以numpy array的格式存文件(./wave.npy)
-7. 点击Close按钮，串口关闭，波形图关闭  
-
+上位机用接收到的串口数据绘制波形图，最多显示最新的40k个数据点  
+6. 如果选中value单选框, 接收到的数据以文本形式显示, 可以选择以十进制(本应该是十六进制较好)或字符格式显示.  
+7. 点击Stop按钮，上位机发送'\xb9'字节给串口设备(MCU)， 单片机随后停止采集.  
+同时上位机将接收到的所有数据以numpy array的格式存文件(./wave.npy)  
+8. 点击Close按钮，串口关闭  
+9. 点击Play按钮，读取当前文件夹下的.tempwav.wav，并播放
 
 # Develop Log
 2019/3/2:
@@ -327,6 +330,9 @@ compare to matplotlib:
 - [x] 用Qt Designer重新设计上位机界面,将波形图绘制嵌入到应用程序内部,
 通过单选框防止接收文本和波形图同时刷新导致的程序崩溃现象.新的上位机文件放置在Scripts/QtProject路径下.
 运行方式: > python gui.py
+
+2019/4/27:
+- [x] 更新GUI界面，添加播放按钮
 
 # 参考资料
 [PyQt4 Reference Guide](http://pyqt.sourceforge.net/Docs/PyQt4/)  

@@ -1,5 +1,13 @@
-#readme.md
-更新Ui_demo.py后需要在from PyQt4 import QtCore, QtGui后面加上
+# readme.md  
+
+使用QtDesinger开发GUI程序：  
+1. 在QtDesinger中拖拽控件完成界面布局,并修改命名和属性  
+2. pyuic4 -o Ui_demo.py demo.ui从ui文件生成界面代码  
+3. 新建python文件, 导入Ui_demo.py, 在已有的界面上实现需求  
+
+一般情况下,不要试图修改Ui_demo.py文件, 因为每次运行pyuic4之后, 手动所做的修改都会被覆盖.  
+但是对于本项目,我不得不这么做,所以每次更新Ui_demo.py后需要作以下修改:  
+在from PyQt4 import QtCore, QtGui后面加上  
 ```python
 import serial
 import serial.tools.list_ports
@@ -34,7 +42,7 @@ class CustomComboBox(QtGui.QComboBox):
 ```
 并将SerialPortcomboBox的QtGui.QComboBox改为CustomComboBox
 ```python
-self.SerialPortcomboBox = CustomComboBox(self.layoutWidget1)
+self.SerialPortcomboBox = CustomComboBox(self.layoutWidget2)
 ```
 并将第141行左右的声明改为(括号内为空)
 ```python

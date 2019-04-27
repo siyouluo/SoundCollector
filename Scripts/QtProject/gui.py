@@ -6,8 +6,10 @@
 import sys
 import thread
 import time
+import wave
+import winsound
+import os
 import numpy as np
-
 from PyQt4 import QtGui, QtCore
 from PyQt4.QtCore import QThread
 import pyqtgraph as pg
@@ -92,16 +94,18 @@ class MainWindow(QtGui.QMainWindow, Ui_demo.Ui_Dialog):
         self.s.timeout = 1#1s未读取到串口数据则超时退出
         self.s.baudrate=115200
         self.wave = np.array([])#存储所有串口接收到的字符
+        self.wav_file_name = ".tempwav.wav"
+        self.PlayFlag = True
+        self.framerate = 8000#采样频率
         self.setupUi(self)
  
         self.p = self.WavegraphicsView.addPlot()
         self.p.setYRange(-5, 260, padding=0) 
         self.p.showGrid(x=True, y=True, alpha=0.5) 
         self.curve = self.p.plot()
-        self.ptr = 0
 
         self.updateUi()
-
+        self.PlayButton.setEnabled(False)
         self.t = MyThread()
         self.t.setIdentity("Serial Read Thread", self.s)
         self.t.signalOut.connect(self.addtoText)
@@ -116,6 +120,7 @@ class MainWindow(QtGui.QMainWindow, Ui_demo.Ui_Dialog):
         #self.SerialPortcomboBox = CustomComboBox(self)
         self.connect(self.StartButton, QtCore.SIGNAL('clicked()'), self.StartButton_process)        
         self.connect(self.StopButton, QtCore.SIGNAL('clicked()'), self.StopButton_process)
+        self.connect(self.PlayButton, QtCore.SIGNAL('clicked()'), self.PlayButton_process)
         self.connect(self.OnOffButton, QtCore.SIGNAL('clicked()'), self.OnOffButton_process)  
         self.connect(self.DisInWaveradioButton, QtCore.SIGNAL('clicked()'), self.DisInWaveradioButton_process)
         self.connect(self.DisInValueradioButton, QtCore.SIGNAL('clicked()'), self.DisInValueradioButton_process)        
@@ -132,6 +137,9 @@ class MainWindow(QtGui.QMainWindow, Ui_demo.Ui_Dialog):
             if self.s.isOpen():
                 self.statusBar().showMessage('collecting...')
                 self.s.flushInput()
+                self.PlayFlag=True
+                self.PlayButton.setEnabled(False)
+                self.curve.setPos(0, 0)
                 self.wave = np.array([])
                 self.s.write(b'\xa9')
             else:
@@ -143,12 +151,27 @@ class MainWindow(QtGui.QMainWindow, Ui_demo.Ui_Dialog):
             if self.s.isOpen():
                 self.s.write(b'\xb9')  
                 self.statusBar().showMessage("Receive %d bytes"% len(self.wave))
-                intwave = self.wave
-                # print type(self.wave)  #<class 'PyQt4.QtCore.QString'>
-                np.save("wave.npy",intwave)
+                self.PlayButton.setEnabled(True)
+                wave_data = self.wave.astype(np.short)*600
+                f = wave.open(self.wav_file_name, "wb")
+                # 配置声道数、量化位数和取样频率
+                f.setnchannels(1)
+                f.setsampwidth(2)#byte
+                f.setframerate(self.framerate)
+                # 将wav_data转换为二进制数据写入文件
+                f.writeframes(wave_data.tostring())
+                f.close()
             else:
                 QtGui.QMessageBox().question(self, 'msg', "The serial port has not been opened yet", QtGui.QMessageBox.Ok) 
 
+        except Exception as e:
+            print e
+    def PlayButton_process(self):
+        try:
+            self.PlayFlag=False
+            self.curve.setPos(0, 0)
+            self.curve.setData(self.wave)
+            winsound.PlaySound(self.wav_file_name, winsound.SND_ASYNC)
         except Exception as e:
             print e
     def OnOffButton_process(self):
@@ -216,12 +239,11 @@ class MainWindow(QtGui.QMainWindow, Ui_demo.Ui_Dialog):
         self.statusBar().showMessage("Parity : %s "% self.s.parity)
     def DrawWave(self, threadname):
         while self.flag:        
-            if self.s.isOpen() and self.DisInWaveradioButton.isChecked():
+            if self.s.isOpen() and self.DisInWaveradioButton.isChecked() and self.PlayFlag:
                 try:
                     if len(self.wave)>40000:
-                        #self.ptr += 1
                         self.curve.setData(self.wave[-40000:-1])
-                        #self.curve.setPos(self.ptr, 0)
+                        self.curve.setPos(len(self.wave)-40000, 0)
                     else:
                         self.curve.setData(self.wave)
                 except Exception as e:
