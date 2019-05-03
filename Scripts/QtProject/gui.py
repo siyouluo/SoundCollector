@@ -152,7 +152,8 @@ class MainWindow(QtGui.QMainWindow, Ui_demo.Ui_Dialog):
                 self.s.write(b'\xb9')  
                 self.statusBar().showMessage("Receive %d bytes"% len(self.wave))
                 self.PlayButton.setEnabled(True)
-                wave_data = self.wave.astype(np.short)*600
+                np.save("wave.npy",self.wave)
+                wave_data = (self.wave.astype(np.short)-125)*600
                 f = wave.open(self.wav_file_name, "wb")
                 # 配置声道数、量化位数和取样频率
                 f.setnchannels(1)
@@ -241,9 +242,9 @@ class MainWindow(QtGui.QMainWindow, Ui_demo.Ui_Dialog):
         while self.flag:        
             if self.s.isOpen() and self.DisInWaveradioButton.isChecked() and self.PlayFlag:
                 try:
-                    if len(self.wave)>40000:
-                        self.curve.setData(self.wave[-40000:-1])
-                        self.curve.setPos(len(self.wave)-40000, 0)
+                    if len(self.wave)>10000:
+                        self.curve.setData(self.wave[-10000:-1])
+                        self.curve.setPos(len(self.wave)-10000, 0)
                     else:
                         self.curve.setData(self.wave)
                 except Exception as e:

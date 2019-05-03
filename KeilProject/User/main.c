@@ -21,15 +21,20 @@ void All_Init()
 int main()
 {
 	uint8_t temp;
+	uint8_t i=0;
     All_Init();	
     while(1)
     {
 		while(!ADC_QUEUE_EMPTY())
 		{
 			temp = ADC_POP_QUEUE();
-			//USART1_WriteByte(temp);
-			USART2_WriteByte(temp);
-			led=~led;
+			USART1_WriteByte(temp);
+			//USART2_WriteByte(temp);
+			i++;
+			if(i%10==0)
+			{
+				led=~led;
+			}
 		}
     }
 

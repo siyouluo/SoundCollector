@@ -1,5 +1,5 @@
-#ifndef _USART_H
-#define _USART_H
+#ifndef _USART2_H
+#define _USART2_H
 
 #include "system.h"
 #include "stdio.h"
